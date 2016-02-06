@@ -21,7 +21,7 @@
 
 		<section id="content">
 		
-		<h2>Oauth2 version</h2>
+			<h2>Oauth2 version</h2>
 		
 			<div id="query">
 				<button id="getCurrentActiveUsers">Get Current Active Users</button>
