@@ -1,7 +1,5 @@
 #Project DING
-*Going DING like you've never dung before*
+*Going DING like you've never dung before with the GA Realtime API*
 
-##### GA Realtime API	
-##### 
 
 
