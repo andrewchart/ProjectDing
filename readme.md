@@ -26,6 +26,7 @@
 	
 	
 	
-__6/2/2016__
+__6/2/2016:__
+
 Created OAuth2 Interface and client side function to request the API directly and update
 the DOM with the response
