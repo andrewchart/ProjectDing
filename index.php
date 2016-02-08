@@ -18,7 +18,7 @@
 		<section id="content">
 			<ul>
 				<li><a href="oauth2_version.php">Oauth2 Version (for users with access to the GA property)</a></li>
-				<li><a href="service_version.php">Service Application Version (for the general public)</a></li>
+				<li><a href="service_version.php">Service Application Version (for people without access to the property)</a></li>
 			</ul>
 		</section>
 	</body>

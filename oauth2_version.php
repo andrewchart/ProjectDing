@@ -41,11 +41,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script>
 		
-			//Realtime API version 3
+			//Google Analytics API version 3
 			var API_BASE = "https://www.googleapis.com/analytics/v3";
 			var API_KEY = "<?php include_once('private/client_api_key.txt'); ?>";
 			
-			//Analytics property AMC UA Main UA-7172785-6
+			//Google Analytics property AMC UA Main UA-7172785-6
 			var GA_VIEW_ID = "<?php include_once('private/ga_view_id.txt') ?>";
 			
 		</script>

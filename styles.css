@@ -5,6 +5,8 @@ body {
 	min-width: 320px;
 }
 
+pre {text-align: left}
+
 header {
 	color: #fff;
 	background-color: #DE8A0C;
@@ -110,13 +112,21 @@ a {
 	text-decoration: none;
 }
 
+p { margin-bottom: 1.2em; }
+
 li:hover { 
-	color: #2B93D4;
+	color: #2b93d4;
 }
 
 #result {
 	margin-top: 3em;
-	color: #2B93D4;
+	color: #2b93d4;
+}
+
+code {
+	padding: 0.2em 0.4em;
+	margin-right: 1em;
+	background-color: #ffe4d4;
 }
 
 #number { font-size: 15em; font-weight: 800; }

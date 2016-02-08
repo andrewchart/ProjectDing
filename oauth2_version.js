@@ -47,7 +47,7 @@ function getCurrentActiveUsers(API_BASE, API_KEY, GA_VIEW_ID, pagePath) {
 	
 		function(response){
 			
-			$("#result span").empty();
+			$("#result span").empty().removeClass("error");
 		
 			//console.log(response);
 			if(response.status == "200" && response.result.totalResults > 0) {
