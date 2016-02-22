@@ -22,11 +22,9 @@
 			<p><code>service-version-scripts/get_transactions.php</code> Run on a 2 minute cron job to populate the DB with transaction data</p>
 			<p><code>service-version-scripts/process_notifications.php</code> Run on a 2 minute cron job to do something with any unprocessed transactions</p>
 			
-			<?php include_once('service-version-scripts/get_transactions.php'); ?>
 			<?php
-				echo "<pre>"; print_r($results); echo "</pre>";
 				
-				
+			
 				/* Manage user's subscription to PUSH notifications */
 				
 				
