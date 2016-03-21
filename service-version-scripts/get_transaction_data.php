@@ -10,13 +10,13 @@
 /* Create the Analytics Client Object and Authenticate it */
 
 //Include Google API Library
-require_once '../google-api-php-client/src/Google/autoload.php';
+require_once 'google-api-php-client/src/Google/autoload.php';
 
 //Google Analytics API version 3
 define("API_BASE", "https://www.googleapis.com/analytics/v3");
 
 //Service Account Credentials
-$service_account = json_decode(file_get_contents('../private/service_account_credentials.json'));
+$service_account = json_decode(file_get_contents('private/service_account_credentials.json'));
 
 
 // Create and configure a new client object.
@@ -40,7 +40,7 @@ if($client->getAuth()->isAccessTokenExpired()) {
 
 
 /* Query the API for latest transaction data */
-define("GA_VIEW_ID", "ga:" . file_get_contents('../private/ga_view_id.txt'));
+define("GA_VIEW_ID", "ga:" . file_get_contents('private/ga_view_id.txt'));
 $from = "today";
 $to = "today";
 $metrics = "ga:itemRevenue, ga:itemQuantity";
@@ -50,14 +50,11 @@ $parameters = array(
 			
 $results = $analytics->data_ga->get(GA_VIEW_ID, $from, $to, $metrics, $parameters);
 
-echo "<pre>"; print_r($results); echo "</pre>";
+//echo "<pre>"; print_r($results); echo "</pre>";
 
 			
 
 /* Write the results into the transaction data table */
-
-//DB connection and check tables exist
-require_once('database_connection.php');
 
 $values = array();
 
@@ -65,7 +62,7 @@ $values = array();
 // in the table and add it to $values if not
 foreach($results->rows AS $result) {
 	
-	$sql = "SELECT COUNT(order_id) FROM transactions WHERE order_id = '$result[0]'";
+	$sql = "SELECT COUNT(order_id) FROM pding_transactions WHERE order_id = '$result[0]'";
 	$count = mysqli_fetch_array(mysqli_query($conn, $sql));
 	if($count[0] > 0) continue; 
 	
@@ -76,7 +73,8 @@ foreach($results->rows AS $result) {
 		"product_name" =>  "'" . $result[2] . "'",
 		"subtotal" =>  $result[3],
 		"quantity" =>  $result[4],
-		"transaction_date" => "NOW()"
+		"transaction_date" => "NOW()",
+		"notification_sent" => 0
 	);
 	
 	array_push($values, $line);
@@ -86,11 +84,18 @@ foreach($results->rows AS $result) {
 foreach($values AS $row) {
 		
 	$data = implode($row, ", ");
-	$sql = "INSERT INTO transactions VALUES (" . $data . ")";
+	$sql = "INSERT INTO pding_transactions VALUES (" . $data . ")";
 	//echo $sql;
 	mysqli_query($conn,$sql);
 	
 }
 
+//Drop any lines from the table that are more than 3 days old
+$sql = "DELETE FROM pding_transactions WHERE transaction_date < DATE_SUB(NOW(), INTERVAL 3 DAY)";
+mysqli_query($conn,$sql);
+
+
+//
+echo "Transactions Processed<br><Br>";
 
 ?>

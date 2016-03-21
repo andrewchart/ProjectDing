@@ -19,8 +19,7 @@
 		
 			<h2>Service Version</h2>
 			
-			<p><code>service-version-scripts/get_transactions.php</code> Run on a 2 minute cron job to populate the DB with transaction data</p>
-			<p><code>service-version-scripts/process_notifications.php</code> Run on a 2 minute cron job to do something with any unprocessed transactions</p>
+			<p><code>start_push_notification_cycle.php</code> Run on a 2 minute cron job to populate the DB with transaction data, create amalgamated push notifications, and send the notifications to subscribed users via a web service.</p>
 			
 			<?php
 				
