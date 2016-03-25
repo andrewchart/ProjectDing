@@ -133,3 +133,40 @@ code {
 #message1 { font-size: 2.6em; font-weight: 600; }
 #message2 { font-size: 1.6em; font-weight: 600; font-style: italic; color: #333; display: block; }
 #message2.error { color: #cc0202; }
+
+
+
+#register-for-notifications {
+	margin-top: 5em;
+}
+
+#register-for-notifications h4 {
+	font-size: 1.7em;
+	margin-bottom: 0.9em;
+}
+
+
+
+#register-for-notifications .error {
+	color: indianred;
+	font-style: italic;
+	display: none;
+}
+
+button#register { 
+	display: none; 
+	margin-bottom: 1.7em;	
+}
+
+#register.unregistered {
+	background-color: #0288e1;
+}
+
+#register.registered {
+	background-color: #0060a7;
+}
+
+#register.waiting {
+	background-color: #ccc;
+}
+

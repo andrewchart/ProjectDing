@@ -10,7 +10,7 @@
 
 //Select transactions that have not had a push notification 
 //sent yet from the transactions table
-$sql = "SELECT order_id FROM pding_transactions WHERE notification_sent = 2";
+$sql = "SELECT order_id FROM pding_transactions WHERE notification_queued = 0";
 
 if ($result = mysqli_query($conn, $sql)) {
 
@@ -21,12 +21,18 @@ if ($result = mysqli_query($conn, $sql)) {
 	}
 }
 
-print_r($ids);
+//print_r($ids);
 $count = count($ids);
 
+//No orders to create notifications for
+if($count == 0) {
+
+	echo "No notifications created";
+	//Have a little rest
+}
 
 //One order for one item only
-if($count == 1) {
+else if($count == 1) {
 
 	createNotification($ids, 0);
 	
@@ -116,12 +122,30 @@ function createNotification($ids, $msgType) {
 		)
 	);
 	
+	$notification = $msgs[$msgType];
+	
 	echo "<pre>";
-	print_r($msgs[$msgType]);
+	print_r($notification);
 	echo "</pre>";
 	
 	
+	
 	//Insert notification into table
+	$sql = "INSERT INTO pding_notifications VALUES ('', '"
+		. mysqli_real_escape_string($conn, $notification['title']) . "', '"
+		. mysqli_real_escape_string($conn, $notification['body']) . "', '"
+		. mysqli_real_escape_string($conn, $notification['action']) . "', '"
+		. mysqli_real_escape_string($conn, $notification['image']) . "', NOW())";
+	echo $sql;
+	mysqli_query($conn, $sql);
+	
+	
+	//Mark transactions as "sent"
+	foreach($ids AS $id) {
+		$sql = "UPDATE pding_transactions SET notification_queued=1 WHERE order_id = $id";
+		mysqli_query($conn, $sql);
+	}
+	
 	
 }
 
@@ -129,7 +153,7 @@ function createNotification($ids, $msgType) {
 
 //Get the image thumbnail url
 function getImage($sku) {
-	return ".jpg";
+	return "default.jpg";
 }
 
 

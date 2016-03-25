@@ -8,6 +8,7 @@
 		
 		<link href='https://fonts.googleapis.com/css?family=Cabin:400,500,600italic,600,800' rel='stylesheet' type='text/css'>
 		<link href='styles.css' rel='stylesheet' type='text/css'>
+		<link rel="manifest" href="manifest.json">
 		
 	</head>
 	<body>
@@ -29,8 +30,19 @@
 				
 			?>
 		
+			<section id="register-for-notifications">
+			
+				<h4>Register for push notifications</h4>					
+				<button id="register" class="unregistered">Subscribe to notifications</button>
+				
+				<p id="errorMsg" class="error"></p>
+							
+			</section>
+
+		
 		</section>
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		
+		<script src="sw-controller.js"></script>
 	</body>
 </html>

@@ -12,7 +12,7 @@
 $tables = array(
 	array(
 		"tableName" => "pding_transactions", 
-		"tableColumnsSql" => "order_id VARCHAR(20), product_code VARCHAR(30), product_name VARCHAR(120), subtotal DECIMAL(11,4), quantity SMALLINT, transaction_date DATETIME, notification_sent TINYINT(1)"
+		"tableColumnsSql" => "order_id VARCHAR(20), product_code VARCHAR(30), product_name VARCHAR(120), subtotal DECIMAL(11,4), quantity SMALLINT, transaction_date DATETIME, notification_queued TINYINT(1)"
 	),
 	array(
 		"tableName" => "pding_notifications", 
