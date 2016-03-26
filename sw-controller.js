@@ -24,12 +24,13 @@ function onRegistered(reg){
 	
 	console.log("Serviceworker available!");
 	
-	//Check the subscription state and show the button
-	checkSubstate(reg);
-	
 	//Create the subscribe and unsubscribe functions
 	window.subscribe = createSubFunc(reg);
 	window.unsubscribe = createUnsubFunc(reg);
+	window.checkSubstate = createIssubFunc(reg);
+	
+	//Check the subscription state and show the button
+	checkSubstate();	
 	
 }
 
@@ -48,17 +49,18 @@ function createSubFunc(reg) {
 		
 			userVisibleOnly: true
 		
-		}).then(function(pushSubscription){
+		}).then(function(sub){
 		
-			console.log('Endpoint: ', pushSubscription.endpoint);
-			setSubscribed();
-			clearTimeout(waitingTooLong);
+			console.log('Endpoint: ', sub.endpoint);
+			subscription(sub.endpoint, "add").then(function(){
+				checkSubstate();
+			});
+	
 				
 		}).catch(function(error) {
 		
-		    console.log('Error subscribing', error);
-		    setUnsubscribed();
-		    clearTimeout(waitingTooLong);
+			setUnsubscribed();
+			onError("Sorry, we were not able to subscribe you to notifications. Please try again.")
 			
 		});
 		
@@ -72,59 +74,98 @@ function createUnsubFunc(reg) {
 	return function() {
 	
 		reg.pushManager.getSubscription().then(function(sub){
+
+			subscription(sub.endpoint, "delete");
 		
 			sub.unsubscribe().then(function(event) {
 			
-			    console.log('Unsubscribed!', event);
+			    console.log('Unsubscribed!');
 			    setUnsubscribed();
-			    clearTimeout(waitingTooLong);
+			    
 
 			}).catch(function(error) {
 			
 			    console.log('Error unsubscribing', error);
 			    setSubscribed();
-			    clearTimeout(waitingTooLong);
 			    			    
 			});	
 			
-			
-		
 		});
 	
-		
-		
 	}
 	
 }
-
 
 //Check subscription state
-function checkSubstate(reg){
+function createIssubFunc(reg) {	
 
-	try {
-	
-		reg.pushManager.getSubscription().then(function(sub){
-			
-			if(sub === null) {
-				setUnsubscribed();
-			} else {
-				setSubscribed();
-			}
-					
-		}).catch(function(err) {
-			onError(err + ". Please try refreshing this page.");
-		});
+	return function() {
+
+		try {
 		
-	}
+			reg.pushManager.getSubscription().then(function(sub){
+				
+				//If the browser has no subscription, we can set unsubbed state immediately
+				if(sub === null) {
+					setUnsubscribed();
+				}
+				
+				//Otherwise, compare the browser sub to the database. Same endpoint needs
+				//to exist in both otherwise we have no way of sending notifications
+				else {
+					subscription(sub.endpoint, "check").then(function(){
+						console.log(subState);
+						if(subState == "subscribed") {
+							setSubscribed();
+						} else {
+							setUnsubscribed();
+						}
+					});
+				}
+						
+			}).catch(function(err) {
+				setUnsubscribed();
+				onError(err + ". Please try refreshing this page.");
+			});
+			
+		}
+		
+		catch(e) {
+			setUnsubscribed();
+		}
 	
-	catch(e) {
-		setUnsubscribed();
 	}
 	
 }
+
+//Register or de-register a subscription with the server
+//Also: check the subscription state and return a resolved promise
+function subscription(endpoint, action) {
+
+	var url = "service-version-scripts/record_subscription.php?action=" + action + "&endpoint=" + endpoint;
+	
+	var fetchResult = fetch(url).then(function(response) {
+	
+		return response.text().then(function(data) {
+			window.subState = data;
+		});
+					
+	}).catch(function(err) {
+		setUnsubscribed();
+	});
+	
+	return Promise.resolve(fetchResult);		
+}
+
+
+
+
+
+/* State Controls */ 
 
 //Unregistered button state
 function setUnsubscribed() {
+	clearTimeout(window.waitingTooLong);
 	registerBtn.style.display = "block";
 	registerBtn.className = "unregistered";
 	registerBtn.innerHTML = "Subscribe to notifications";
@@ -133,6 +174,7 @@ function setUnsubscribed() {
 
 //Registered button state
 function setSubscribed() {
+	clearTimeout(window.waitingTooLong);
 	registerBtn.style.display = "block";
 	registerBtn.className = "registered";
 	errorMsg.innerHTML = "";

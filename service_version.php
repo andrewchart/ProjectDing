@@ -22,14 +22,7 @@
 			
 			<p><code>start_push_notification_cycle.php</code> Run on a 2 minute cron job to populate the DB with transaction data, create amalgamated push notifications, and send the notifications to subscribed users via a web service.</p>
 			
-			<?php
-				
-			
-				/* Manage user's subscription to PUSH notifications */
-				
-				
-			?>
-		
+
 			<section id="register-for-notifications">
 			
 				<h4>Register for push notifications</h4>					

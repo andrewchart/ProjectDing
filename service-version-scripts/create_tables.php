@@ -17,11 +17,11 @@ $tables = array(
 	array(
 		"tableName" => "pding_notifications", 
 		"tableColumnsSql" => "title VARCHAR(256), body VARCHAR(256), action TEXT, image VARCHAR(256), notification_date DATETIME"	
-	)/*,
+	),
 	array(
 		"tableName" => "pding_users", 
-		"tableColumnsSql" => ""	
-	),
+		"tableColumnsSql" => "endpoint VARCHAR(256)"	
+	)/*,
 	array(
 		"tableName" => "pding_images",
 		"tableColumnsSql" => ""
