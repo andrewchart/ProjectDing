@@ -3,7 +3,7 @@
 /* Install Event */
 self.addEventListener('install', function(event) {
 	self.skipWaiting(); //debug
-	console.log("New SW installed 1710");
+	console.log("New SW installed 1723");
 });
 
 /* Activate Event */
@@ -34,7 +34,7 @@ self.addEventListener('push', function(event) {
 					],
 					body: json.message,
 					icon: json.image,
-					tag: 'oneNotificationAtaTime',
+					tag: 'oneNotificationAtaTime' + Math.random(),
 					data: {
 						defaultAction: json.actions.defaultAction,
 						action1: json.actions.action1

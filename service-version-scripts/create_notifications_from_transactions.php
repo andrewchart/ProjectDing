@@ -62,7 +62,7 @@ function createNotification($ids, $msgType) {
 	
 	//Set initial vars
 	$conn = $GLOBALS['conn'];
-	$curr = "£";
+	$curr = utf8_encode("£");
 	$path = $_SERVER['HTTP_HOST'] . "/ProjectDing";
 	$num_orders = count(array_unique($ids)); 
 	$order_ids = implode($ids, ",");
