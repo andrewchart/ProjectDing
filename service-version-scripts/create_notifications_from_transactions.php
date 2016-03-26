@@ -9,7 +9,7 @@
 
 
 //Select transactions that have not had a push notification 
-//sent yet from the transactions table
+//created for them yet from the transactions table
 $sql = "SELECT order_id FROM pding_transactions WHERE notification_queued = 0";
 
 if ($result = mysqli_query($conn, $sql)) {
@@ -27,7 +27,7 @@ $count = count($ids);
 //No orders to create notifications for
 if($count == 0) {
 
-	echo "No notifications created";
+	echo "No notifications created<br><br>";
 	//Have a little rest
 }
 
@@ -62,7 +62,7 @@ function createNotification($ids, $msgType) {
 	
 	//Set initial vars
 	$conn = $GLOBALS['conn'];
-	$curr = "&pound;";
+	$curr = "£";
 	$path = $_SERVER['HTTP_HOST'] . "/ProjectDing";
 	$num_orders = count(array_unique($ids)); 
 	$order_ids = implode($ids, ",");
@@ -150,12 +150,40 @@ function createNotification($ids, $msgType) {
 }
 
 
-
 //Get the image thumbnail url
 function getImage($sku) {
 	return "default.jpg";
 }
 
+
+
+
+
+
+
+/*Write the latest notification into a .json file*/
+
+//Originally I decided to store lots of notifications in pding_notificatons and was going to create the
+//notifications, mark them as sent, cleanse them occasionally etc. Later, it seemed more sensible to just
+//constantly write a recent notification to a single json file and use this when clients request notification data
+
+//The table may still be a useful construct later if users want some notifications and not others. 
+
+//However, this next step just always gets the most-recently-created notification and turns it into
+//a .json file which will be available to clients when they receive a GCM push notification in the 
+//subsequent steps.
+
+$sql = "SELECT * FROM pding_notifications ORDER BY notification_date DESC LIMIT 1";
+$notification = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+//print_r($notification);
+
+$file = fopen("latest-notification.json", "w") or die("Unable to open file!");
+
+$txt = '{"title":"' . addslashes($notification['title']) . '", "message":"' . addslashes($notification['body']) . '", "actions":{"defaultAction":"' . addslashes($notification['action']) . '","action1":"' . addslashes($notification['action']) . '"}, "image":"' . addslashes($notification['image']) . '"}';
+//echo $txt;
+
+fwrite($file, $txt);
+fclose($file);
 
 
 

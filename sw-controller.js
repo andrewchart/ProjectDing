@@ -45,6 +45,8 @@ function createSubFunc(reg) {
 	
 	return function() {
 	
+		//TODO: Return an error message if the user has blocked push notifications for the site
+	
 		reg.pushManager.subscribe({
 		
 			userVisibleOnly: true

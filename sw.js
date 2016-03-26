@@ -2,8 +2,8 @@
 
 /* Install Event */
 self.addEventListener('install', function(event) {
-	//self.skipWaiting(); //debug
-	console.log("New SW installed");
+	self.skipWaiting(); //debug
+	console.log("New SW installed 1710");
 });
 
 /* Activate Event */
@@ -11,13 +11,13 @@ self.addEventListener('activate', function(event) {
 	console.log("New SW activated");
 });
 
-/* Push 
+/* Push Received */
 self.addEventListener('push', function(event) {
 
 	//console.log('Push message received!', event);
 	
-	//Fetch
-	var url = "msgs/cWqGxVjHwuw:APA91bH3tgNI-JL_Uz2gzcxMz3SMTFZtZTESnzCljxhu8myTkw3PJY-9cEnbh-EkAdRfh5KANA172tdtzgeO-Xz59blcIl4bPVylxfGrIV8n_4qkL5aX867ESehlw4VTWzzl3yyjt_FE.json";
+	//Fetch 
+	var url = "latest-notification.json";
 	fetch(url).then(  
 	    function(response) {  
 			if (response.status !== 200) {  
@@ -30,20 +30,14 @@ self.addEventListener('push', function(event) {
 	      		//Display the message
 				self.registration.showNotification(json.title, {
 					actions: [ //Chrome 48+, only 2 actions allowed so far? Log for event.action in notificationclick listener
-						{action: "1", title: "Action 1: Do it"},
-						{action: "2", title: "Action 2: Cancel it"},
-						{action: "3", title: "Action 3: Hop to it"},
-						{action: "4", title: "Action 4: Smooch"}
+						{action: "1", title: "View order details"}
 					],
 					body: json.message,
 					icon: json.image,
-					tag: 'my-tag',
+					tag: 'oneNotificationAtaTime',
 					data: {
 						defaultAction: json.actions.defaultAction,
-						action1: json.actions.action1,
-						action2: json.actions.action2,
-						action3: json.actions.action3,
-						action4: json.actions.action4
+						action1: json.actions.action1
 					}
 				});
 				
@@ -53,9 +47,9 @@ self.addEventListener('push', function(event) {
 		});
 });
 
-*/
 
-/* Listen for a click 
+
+/* Listen for a click */
 self.addEventListener("notificationclick", function(event){
 	
 	//Make sure the notification closes
@@ -100,4 +94,3 @@ self.addEventListener("notificationclick", function(event){
 	}));
 	
 });
-*/

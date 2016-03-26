@@ -20,7 +20,7 @@ $tables = array(
 	),
 	array(
 		"tableName" => "pding_users", 
-		"tableColumnsSql" => "endpoint VARCHAR(256)"	
+		"tableColumnsSql" => "endpoint VARCHAR(256), last_response VARCHAR(256)"	
 	)/*,
 	array(
 		"tableName" => "pding_images",

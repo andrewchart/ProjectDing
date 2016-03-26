@@ -16,7 +16,7 @@
  *    THE PUSH NOTIFICATION TABLE
  *
  *	- LOOP THROUGH THE PUSH NOTIFICATIONS TABLE
- *    SENDING 
+ *    SENDING NOTIFICATIONS TO SUBSCRIBED USERS
  *
 **/
 
@@ -32,7 +32,7 @@ require_once('service-version-scripts/create_tables.php');
 require_once('service-version-scripts/get_transaction_data.php');
 
 /* Turn data from pding_transactions into amalgamated push notifications */
-// (and flag transaction lines in pding_transactions as 'processed'
+// (and flag transaction lines in pding_transactions as 'queued'
 require_once('service-version-scripts/create_notifications_from_transactions.php');
 
 

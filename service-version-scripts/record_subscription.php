@@ -4,6 +4,7 @@
  * About Me:
  * WRITE USERS' SUBSCRIPTION ENDPOINTS TO THE PDING_USERS TABLE
  * HANDLE CLEANSING OF THE TABLE (UNSUBSCRIBES AND DEAD SUBSCRIPTIONS)
+ * RETURN A RESPONSE STRING TO BE HANDLED BY THE FRONT END
  *
 **/
 
@@ -29,7 +30,7 @@ $endpoint = pg_escape_string(urldecode($_GET['endpoint']));
 
 if($_GET['action'] === "add") {
 
-	$sql = "INSERT INTO pding_users VALUES ('', '$endpoint')";
+	$sql = "INSERT INTO pding_users VALUES ('', '$endpoint', '')";
 	$success = "added";
 	mysqli_query($conn, $sql);
 	if(mysqli_affected_rows($conn) > 0) {
