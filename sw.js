@@ -1,9 +1,8 @@
 
-
 /* Install Event */
 self.addEventListener('install', function(event) {
-	self.skipWaiting(); //debug
-	console.log("New SW installed 1723");
+	//self.skipWaiting(); //debug
+	console.log("New SW installed 1138");
 });
 
 /* Activate Event */
@@ -18,33 +17,32 @@ self.addEventListener('push', function(event) {
 	
 	//Fetch 
 	var url = "latest-notification.json";
-	fetch(url).then(  
-	    function(response) {  
-			if (response.status !== 200) {  
-				console.log('HTTP Error. Status Code: ' + response.status);  
-				return;  
-			}
-	      
-	     	response.json().then(function(json) {  
-	      		
-	      		//Display the message
-				self.registration.showNotification(json.title, {
-					actions: [ //Chrome 48+, only 2 actions allowed so far? Log for event.action in notificationclick listener
-						{action: "1", title: "View order details"}
-					],
-					body: json.message,
-					icon: json.image,
-					tag: 'oneNotificationAtaTime' + Math.random(),
-					data: {
-						defaultAction: json.actions.defaultAction,
-						action1: json.actions.action1
-					}
-				});
-				
-	    	}); 
-	    }).catch(function(err) {  
-			console.log('Fetch Error', err);  
-		});
+	fetch(url).then(function(response) {  
+		if (response.status !== 200) {  
+			console.log('HTTP Error. Status Code: ' + response.status);  
+			return;  
+		}
+      
+     	response.json().then(function(json) {  
+      		
+      		//Display the message
+			return self.registration.showNotification(json.title, {
+				actions: [ //Chrome 48+, only 2 actions allowed so far? Log for event.action in notificationclick listener
+					{action: "1", title: "View order details"}
+				],
+				body: json.message,
+				icon: json.image,
+				tag: 'oneNotificationAtaTime',
+				data: {
+					defaultAction: json.actions.defaultAction,
+					action1: json.actions.action1
+				}
+			});
+			
+    	}); 
+    }).catch(function(err) {  
+		console.log('Fetch Error', err);  
+	});
 });
 
 

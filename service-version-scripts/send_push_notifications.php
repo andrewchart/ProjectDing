@@ -79,7 +79,7 @@ foreach($users as $index => $value) {
 
 
 //Remove any dead subscriptions from the database
-$sql = "DELETE FROM pding_users WHERE last_response = 'error: InvalidRegistration'";
+$sql = "DELETE FROM pding_users WHERE last_response LIKE 'error:%'";
 mysqli_query($conn,$sql);
 
 ?>

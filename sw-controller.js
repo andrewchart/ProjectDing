@@ -1,3 +1,4 @@
+
 /* DOM Elements */
 var registerBtn = document.getElementById("register");
 var errorMsg = document.getElementById("errorMsg");
@@ -62,7 +63,7 @@ function createSubFunc(reg) {
 		}).catch(function(error) {
 		
 			setUnsubscribed();
-			onError("Sorry, we were not able to subscribe you to notifications. Please try again.")
+			onError("Sorry, we were not able to subscribe you to notifications. Please try again." + error)
 			
 		});
 		
