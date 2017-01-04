@@ -1,11 +1,9 @@
 * { margin: 0; padding: 0; }
-			
-body { 
-	font-family: cabin, helvetica, arial, sans-serif; 
+
+body {
+	font-family: cabin, helvetica, arial, sans-serif;
 	min-width: 320px;
 }
-
-pre {text-align: left}
 
 header {
 	color: #fff;
@@ -13,8 +11,8 @@ header {
 	height: 3em;
 }
 
-h1 { 
-	font-weight: 600; 
+h1 {
+	font-weight: 600;
 	height: 100%;
 	line-height: 1.8em;
 	margin: 0 0.5em;
@@ -23,19 +21,12 @@ h1 {
 }
 
 h2 {
-	color: #7f4ed8; 
-	padding-left:.85em;
+	color: #7f4ed8;
+	padding: 0 0 0.85em 0.55em;
+	margin: 0.8em 0;
 	font-size: 1.3em;
-	padding-bottom: 0.35em;
 	border-bottom: 7px solid #ccc;
-	margin-bottom: 1.2em;
-}
 
-#menu {
-	float: right;
-	height: 100%;
-	line-height: 1.7em;
-	margin: 0 0.5em;
 }
 
 button {
@@ -44,30 +35,15 @@ button {
     color: #fff;
     font-size: 0.8em;
     padding: 0.4em 1.4em;
-    border: 1px solid #95c4ef;
-    cursor: pointer;
     margin: 0.8em 0.5em 0 0;
+		border: 1px solid #95c4ef;
+		cursor: pointer;
     width: 20%;
     min-width: 15em;
 }
 
-#query {
-	display: inline-block;
-	margin: auto;
-}
-
-#query span {
-	font-weight: 200; 
-	font-style: italic; 
-	color: #aaa;
-	font-size: 0.8em;
-	display: block;
-	text-align: right;
-	margin-right: 0.66em;
-}
-
-input { 
-	font-family: cabin, helvetica, arial, sans-serif; 
+input {
+	font-family: cabin, helvetica, arial, sans-serif;
 	box-sizing: border-box;
 	padding: 0.3em;
 	font-size: 1.2em;
@@ -85,7 +61,7 @@ label { margin: 0 1em; font-size: 1em;}
 
 #content button {
 	color: #fff;
-	background-color: indianred; 
+	background-color: indianred;
 	width: 15%;
 	margin:auto;
 	padding: 0.7em;
@@ -114,27 +90,9 @@ a {
 
 p { margin-bottom: 1.2em; }
 
-li:hover { 
+li:hover {
 	color: #2b93d4;
 }
-
-#result {
-	margin-top: 3em;
-	color: #2b93d4;
-}
-
-code {
-	padding: 0.2em 0.4em;
-	margin-right: 1em;
-	background-color: #ffe4d4;
-}
-
-#number { font-size: 15em; font-weight: 800; }
-#message1 { font-size: 2.6em; font-weight: 600; }
-#message2 { font-size: 1.6em; font-weight: 600; font-style: italic; color: #333; display: block; }
-#message2.error { color: #cc0202; }
-
-
 
 #register-for-notifications {
 	margin-top: 5em;
@@ -145,17 +103,15 @@ code {
 	margin-bottom: 0.9em;
 }
 
-
-
 #register-for-notifications .error {
 	color: indianred;
 	font-style: italic;
 	display: none;
 }
 
-button#register { 
-	display: none; 
-	margin-bottom: 1.7em;	
+button#register {
+	display: none;
+	margin-bottom: 1.7em;
 }
 
 #register.unregistered {
@@ -169,4 +125,3 @@ button#register {
 #register.waiting {
 	background-color: #ccc;
 }
-

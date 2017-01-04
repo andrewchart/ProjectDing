@@ -9,7 +9,7 @@
  *
  *  - POPULATE THE TRANSACTIONS TABLE WITH
  *    ALL POSSIBLE TRANSACTION PRODUCT LINES
- * 
+ *
  *  - PROCESS THE TRANSACTIONS TABLE DATA AND
  *    GENERATE TURN IT INTO DATA FOR SINGLE-ORDER
  *    OR AMALGAMATED-ORDERS PUSH NOTIFICATIONS IN
@@ -21,24 +21,26 @@
 **/
 
 
+/* Include credentials */
+$credentials = json_decode(file_get_contents('private/credentials.json'));
 
 /* Establish Database connection */
-require_once('service-version-scripts/database_connection.php');
+require_once('scripts/database_connection.php');
 
-/* Ensure Required Tables Are Created */
-require_once('service-version-scripts/create_tables.php');
+/* Ensure Required Database Tables Are Created */
+require_once('scripts/create_tables.php');
 
 /* Query the GA API and write values to the pding_transactions table */
-require_once('service-version-scripts/get_transaction_data.php');
+require_once('scripts/get_transaction_data.php');
 
 /* Turn data from pding_transactions into amalgamated push notifications */
 // (and flag transaction lines in pding_transactions as 'queued'
-require_once('service-version-scripts/create_notifications_from_transactions.php');
+require_once('scripts/create_notifications_from_transactions.php');
 
 
 /* Send the push notifications in pding_notifications */
 // (and remove them from the table so they are only sent once)
-require_once('service-version-scripts/send_push_notifications.php');
+require_once('scripts/send_push_notifications.php');
 
 
 
