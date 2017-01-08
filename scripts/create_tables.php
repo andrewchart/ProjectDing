@@ -39,7 +39,6 @@ foreach($tables AS $table) {
 	//Create it if not
 	if (count($result) == 0) {
 		$sql = "CREATE TABLE $table_name (id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY, " . $table["tableColumnsSql"] . ");";
-		//echo $sql;
 		mysqli_query($conn,$sql);
 	}
 

@@ -77,11 +77,9 @@ else {
 
 	//Loop through the transactions and add them to the table
 	foreach($values AS $row) {
-
 		$data = implode($row, ", ");
 		$sql = "INSERT INTO pding_transactions VALUES (" . $data . ")";
 		mysqli_query($conn,$sql);
-
 	}
 
 	echo "Transactions Processed.";
@@ -90,7 +88,7 @@ else {
 
 /* Drop any lines from the table that are more than 3 days old */
 $sql = "DELETE FROM pding_transactions WHERE transaction_date < DATE_SUB(NOW(), INTERVAL 3 DAY)";
-mysqli_query($conn,$sql);P
+mysqli_query($conn,$sql);
 
 
 ?>
