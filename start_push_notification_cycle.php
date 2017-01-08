@@ -32,7 +32,7 @@ require_once('scripts/create_tables.php');
 
 /* Query the GA API and write values to the pding_transactions table */
 require_once('scripts/get_transaction_data.php');
-
+exit();
 /* Turn data from pding_transactions into amalgamated push notifications */
 // (and flag transaction lines in pding_transactions as 'queued'
 require_once('scripts/create_notifications_from_transactions.php');

@@ -43,31 +43,27 @@ $parameters = array(
 
 $results = $analytics->data_ga->get(GA_VIEW_ID, $from, $to, $metrics, $parameters);
 
-echo "<pre>"; print_r($results); echo "</pre>";
-
 /* If there are no results.. */
 if(count($results->rows) == 0) {
-	echo 'No orders yet today!<br><br>';
+	echo 'No orders yet today!';
 }
 
 /* If there are results: write them to the transaction data table */
 else {
 
-	//echo "<pre>"; print_r($results); echo "</pre>";
-
 	$values = array();
 
-	// Check if the order is already
-	// in the table and add it to $values if not
 	foreach($results->rows AS $result) {
 
-		$sql = "SELECT COUNT(order_id) FROM pding_transactions WHERE order_id = '$result[0]'";
+		//Check that the transaction doesn't already exist
+		$sql = "SELECT COUNT(transaction_id) FROM pding_transactions WHERE transaction_id = '$result[0]'";
 		$count = mysqli_fetch_array(mysqli_query($conn, $sql));
 		if($count[0] > 0) continue;
 
+		//Ready the data for insertion into pding_transactions
 		$line = array(
 			"id" => "''",
-			"order_id" => "'" . $result[0] . "'",
+			"transaction_id" => "'" . $result[0] . "'",
 			"product_code" =>  "'" . $result[1] . "'",
 			"product_name" =>  "'" . $result[2] . "'",
 			"subtotal" =>  $result[3],
@@ -84,20 +80,17 @@ else {
 
 		$data = implode($row, ", ");
 		$sql = "INSERT INTO pding_transactions VALUES (" . $data . ")";
-		//echo $sql;
 		mysqli_query($conn,$sql);
 
 	}
 
-	echo "Transactions Processed<br><br>";
+	echo "Transactions Processed.";
 
 }
 
-//Drop any lines from the table that are more than 3 days old
+/* Drop any lines from the table that are more than 3 days old */
 $sql = "DELETE FROM pding_transactions WHERE transaction_date < DATE_SUB(NOW(), INTERVAL 3 DAY)";
-mysqli_query($conn,$sql);
-
-
+mysqli_query($conn,$sql);P
 
 
 ?>

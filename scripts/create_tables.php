@@ -8,19 +8,19 @@
 **/
 
 
-// Required Table Specifications Array 
+// Required Table Specifications Array
 $tables = array(
 	array(
-		"tableName" => "pding_transactions", 
-		"tableColumnsSql" => "order_id VARCHAR(20), product_code VARCHAR(30), product_name VARCHAR(120), subtotal DECIMAL(11,4), quantity SMALLINT, transaction_date DATETIME, notification_queued TINYINT(1)"
+		"tableName" => "pding_transactions",
+		"tableColumnsSql" => "transaction_id VARCHAR(40), product_code VARCHAR(30), product_name VARCHAR(120), subtotal DECIMAL(11,4), quantity SMALLINT, transaction_date DATETIME, notification_queued TINYINT(1)"
 	),
 	array(
-		"tableName" => "pding_notifications", 
-		"tableColumnsSql" => "title VARCHAR(256), body VARCHAR(256), action TEXT, image VARCHAR(256), notification_date DATETIME"	
+		"tableName" => "pding_notifications",
+		"tableColumnsSql" => "title VARCHAR(256), body VARCHAR(256), action TEXT, image VARCHAR(256), notification_date DATETIME"
 	),
 	array(
-		"tableName" => "pding_users", 
-		"tableColumnsSql" => "endpoint VARCHAR(256), last_response VARCHAR(256)"	
+		"tableName" => "pding_users",
+		"tableColumnsSql" => "endpoint VARCHAR(256), last_response VARCHAR(256)"
 	)/*,
 	array(
 		"tableName" => "pding_images",
@@ -42,7 +42,7 @@ foreach($tables AS $table) {
 		//echo $sql;
 		mysqli_query($conn,$sql);
 	}
-	
+
 }
 
 ?>
